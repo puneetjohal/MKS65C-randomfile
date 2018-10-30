@@ -23,16 +23,19 @@ int main(){
   }
 
   printf("\nWriting numbers to file...\n");
-  int openFile = open("./random.txt", O_RDWR);
+  int openFile = open("./random.txt", O_WRONLY);
   write(openFile, nums, sizeof(int) * 10);
+  close(openFile);
 
   printf("\nReading numbers from file...\n");
+  openFile = open("./random.txt", O_RDONLY);
   int * readNums = calloc(10, sizeof(int));
   read(openFile, readNums, sizeof(int) * 10);
   printf("\nVerification that written values were the same:\n");
   for (i=0; i<10; i++){
     printf("random %d: %d\n", i, readNums[i]);
   }
+  close(openFile);
 
   return 0;
 }
